@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'views/head.html.twig' with {'title': 'Product List'} %}
+
+<body>
+    
+    <nav id="product-list-nav">
+        <div class="nav">
+            <div>
+                <h1>Product List</h1>
+            </div>
+            <div>
+                {#<button class="delete-checkbox" form="product">MASS DELETE</button>#}
+                <button><a href="src/addproduct.php" id="delete-product-btn">ADD</a></button>
+                <button class="delete-checkbox" form="product">MASS DELETE</button>
+            </div>
+        </div>
+
+        <hr>
+    </nav>
+
+    <form action="../src/handledelete.php" method="post" id="product">   
+        <div class="product-view">
+            {% for product in products %}
+                <div>
+                    <input type="checkbox" class="delete-checkbox" name="delete-checkbox[]" value={{ product.id }}>
+
+                    <p>{{ product.sku }}</p>
+                    <p>{{ product.name}}</p>
+                    <p>{{ product.price }} $</p>
+
+                    {% if product.type == "dvd" %}
+                        <p>Size: {{ product.size }} MB</p>
+
+                    {% elseif product.type == "furniture" %}
+                        <p>Dimension: {{ product.height }}x{{ product.width }}x{{ product.length }}</p>
+
+                    {% elseif product.type == "book" %}
+                        <p>Weight: {{ product.weight }}KG</p>
+                        
+                    {% else %}
+
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+        </div>
+    </form>
+
+    {{ include('views/footer.html.twig') }}
+
+</body>
+
+</html>

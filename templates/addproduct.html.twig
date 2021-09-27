@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'views/head.html.twig' with {'title': 'Product Add'} %}
+
+<body>
+    <nav id="add-product-header">
+        <div class="nav">
+            <div id="add-title">
+                <h1>Product Add</h1>
+            </div>
+            <div>
+                <button class="save-checkbox" form="product_form">Save</button>
+                
+                <button class="delete-checkbox"><a href="/index.php">Cancel</a></button>
+            </div>
+        </div>
+        <hr>
+    </nav>
+
+    <form action="../src/handleform.php" class="add-form" method="post" id="product_form">
+        <div id="details-list">
+            <!-- For SKU -->
+            <div>
+                <label for="sku">SKU</label>
+                <input type="text" id="sku" name="sku" required>
+                <p>{{error}}</p>
+            </div>
+            <!-- For Name -->
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <!-- For Price -->
+            <div>
+                <label for="price">Price ($)</label>
+                <input type="number" id="price" name="price" min="0" step="0.01"required>
+            </div>
+        </div>
+
+        <!-- Dropdown List for Product Type -->
+        <div id="switcher">
+            <label for="productType">Type Switcher </label>
+            <select id="productType" name="productType" onChange="changeOptions(this)" required>
+                <option value="" selected="selected">Type Switcher</option>
+                <option value="dvd">DVD</option>
+                <option value="book">Book</option>
+                <option value="furniture">Furniture</option>
+            </select><br><br>
+        </div>
+
+        <!-- For DVD -->
+        <div class="product-types">
+            <div class="className" id="dvd" style="display:none">
+                <label for="size">Size (MB)</label>
+                <input type="number" id="size" name="size" min="0" class="dvd"><br><br>
+                <p class="info">Please, provide size</p>
+            </div>
+
+            <!-- For Furniture -->
+             <div class="className" id="furniture" style="display:none">
+                <label for="height">Height (CM)</label>
+                <input type="number" id="height" name="height" min="0" class="furniture"><br><br>
+
+                <label for="width">Width (CM)</label>
+                <input type="number" id="width" name="width" min="0" class="furniture"><br><br>
+
+                <label for="length">Length (CM)</label>
+                <input type="number" id="length" name="length" min="0" class="furniture"><br><br>
+                <p class="info">Please, provide dimensions</p>
+            </div>
+
+            <!-- For Book -->
+            <div class="className" id="book" style="display:none">
+                <label for="weight">Weight (KG)</label>
+                <input type="number" id="weight" name="weight" min="0" class="book"><br><br>
+                <p class="info">Please, provide weight</p>
+            </div>
+        </div> 
+    </form>
+
+    {{ include('views/footer.html.twig') }}
+</body>
+
+</html>
